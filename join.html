@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Join as Doctor - HEALZUP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content nav-row">
+            <div class="logo"><a href="index.html" class="nav-link">HEALZUP</a></div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="departments.html" class="nav-link">Departments</a>
+                <a href="blogs.html" class="nav-link">Blogs</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn doctor-join">Join as Doctor</button>
+                <a href="login.html" class="btn login">Login/SignUp</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="join-page">
+        <div class="container">
+            <div class="section-title">
+                <h2>Join as a Doctor</h2>
+                <p>Fill this short form to send your profile; our team will contact you for verification.</p>
+            </div>
+            <div class="auth-box">
+                <form id="joinForm">
+                    <div class="form-group">
+                        <label>Full Name</label>
+                        <input type="text" id="docName" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Email</label>
+                        <input type="email" id="docEmail" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Phone</label>
+                        <input type="tel" id="docPhone" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Specialty</label>
+                        <input type="text" id="docSpecialty" required />
+                    </div>
+                    <div class="form-group">
+                        <label>Hospital / Clinic</label>
+                        <input type="text" id="docHospital" required />
+                    </div>
+                    <button type="submit" class="confirm-btn">Submit Application</button>
+                </form>
+                <div id="joinSuccess" class="small" style="display:none; color:#059669; margin-top: 1rem;">Thanks! Your application has been submitted.</div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HEALZUP</h3>
+                    <p>Your trusted platform for finding and booking healthcare appointments</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="departments.html">Departments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="join.html">Join as Doctor</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">Facebook</a>
+                        <a href="#" class="social-icon">Twitter</a>
+                        <a href="#" class="social-icon">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HEALZUP — All Rights Reserved</p>
+                <p>Built and Designed by <strong><a href="https://github.com/Jutt" target="_blank" class="dev-link">Jutt</a></strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>

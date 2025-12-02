@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hospitals - HEALZUP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content nav-row">
+            <div class="logo"><a href="index.html" class="nav-link">HEALZUP</a></div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="hospitals.html" class="nav-link">Hospitals</a>
+                <a href="departments.html" class="nav-link">Departments</a>
+                <a href="blogs.html" class="nav-link">Blogs</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn doctor-join">Join as Doctor</button>
+                <a href="login.html" class="btn login">Login/SignUp</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="section-title">
+            <h2>Our Partner Hospitals</h2>
+            <p>Find and browse our network of trusted healthcare providers</p>
+        </div>
+
+        <div class="hospitals-container" id="hospitalsContainer"></div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HEALZUP</h3>
+                    <p>Your trusted platform for finding and booking healthcare appointments</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="departments.html">Departments</a></li>
+                        <li><a href="hospitals.html">Hospitals</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="join.html">Join as Doctor</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">Facebook</a>
+                        <a href="#" class="social-icon">Twitter</a>
+                        <a href="#" class="social-icon">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HEALZUP — All Rights Reserved</p>
+                <p>Built and Designed by <strong><a href="https://github.com/Jutt" target="_blank" class="dev-link">Jutt</a></strong></p>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const hospitals = [
+                {
+                    name: "Doctors Hospital, Lahore",
+                    address: "Doctors Hospital Road, Lahore",
+                    phone: "042-99200211",
+                    beds: "200 Beds",
+                    accreditation: "JCIA Accredited",
+                    established: "Established 1995",
+                    link: "doctors-hospital-lahore.html",
+                    specialties: ["Cardiology", "Orthopedic", "Neurology", "Gastroenterology"],
+                    facilities: ["ICU", "Emergency", "Lab", "Pharmacy", "Radiology", "Surgery Theaters"],
+                    emoji: "🏥"
+                },
+                {
+                    name: "Evergreen Medical Complex, Lahore",
+                    address: "Wapda Town, Lahore",
+                    phone: "03171777509",
+                    beds: "250 Beds",
+                    accreditation: "ISO Certified",
+                    established: "Established 1998",
+                    link: "evergreen-medical-complex.html",
+                    specialties: ["Cardiology", "Dermatology", "Pediatrics", "ENT"],
+                    facilities: ["ICU", "Emergency", "Lab", "Pharmacy", "Radiology", "Dialysis"],
+                    emoji: "🏥"
+                },
+                {
+                    name: "Aga Khan University Hospital, Karachi",
+                    address: "Stadium Road, Karachi",
+                    phone: "021-34864900",
+                    beds: "550 Beds",
+                    accreditation: "JCI Accredited",
+                    established: "Established 1985",
+                    link: "aga-khan-hospital.html",
+                    specialties: ["Cardiology", "Gynecology", "Neurology", "Pulmonology"],
+                    facilities: ["ICU", "Emergency", "Lab", "Pharmacy", "Radiology", "Research Center"],
+                    emoji: "🏥"
+                },
+                {
+                    name: "Holy Family Hospital, Rawalpindi",
+                    address: "Banth, Rawalpindi",
+                    phone: "051-9200000",
+                    beds: "300 Beds",
+                    accreditation: "ISO Certified",
+                    established: "Established 1987",
+                    link: "holy-family-hospital.html",
+                    specialties: ["Orthopedic", "Gynecology", "Pediatrics", "Gastroenterology"],
+                    facilities: ["ICU", "Emergency", "Lab", "Pharmacy", "Radiology", "Surgery Theaters"],
+                    emoji: "🏥"
+                }
+            ];
+
+            const container = document.getElementById('hospitalsContainer');
+
+            hospitals.forEach(hospital => {
+                const card = document.createElement('div');
+                card.className = 'hospital-card';
+                card.innerHTML = `
+                    <div class="hospital-card-content">
+                        <div class="hospital-emoji">${hospital.emoji}</div>
+                        <h3>${hospital.name}</h3>
+                        <p class="hospital-address">${hospital.address}</p>
+                        
+                        <div class="hospital-info-grid">
+                            <div class="info-item">
+                                <strong>Phone:</strong> ${hospital.phone}
+                            </div>
+                            <div class="info-item">
+                                <strong>Beds:</strong> ${hospital.beds}
+                            </div>
+                            <div class="info-item">
+                                <strong>Accreditation:</strong> ${hospital.accreditation}
+                            </div>
+                            <div class="info-item">
+                                <strong>${hospital.established}</strong>
+                            </div>
+                        </div>
+
+                        <div class="specialties-section">
+                            <h4>Key Specialties:</h4>
+                            <div class="specialties-list">
+                                ${hospital.specialties.map(s => `<span class="specialty-badge">${s}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <div class="facilities-section">
+                            <h4>Facilities:</h4>
+                            <div class="facilities-list">
+                                ${hospital.facilities.map(f => `<span class="facility-badge">✓ ${f}</span>`).join('')}
+                            </div>
+                        </div>
+
+                        <a href="${hospital.link}" class="view-details-btn">View Departments & Doctors →</a>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+        });
+    </script>
+
+    <style>
+        .hospitals-container {
+            max-width: 1200px;
+            margin: 2rem auto;
+            padding: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+        }
+
+        .hospital-card {
+            background: white;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid transparent;
+        }
+
+        .hospital-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 30px rgba(139,92,246,0.2);
+            border-color: #8B5CF6;
+        }
+
+        .hospital-card-content {
+            padding: 2rem;
+        }
+
+        .hospital-emoji {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .hospital-card h3 {
+            color: #8B5CF6;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hospital-address {
+            color: #666;
+            margin-bottom: 1rem;
+            font-size: 0.95rem;
+        }
+
+        .hospital-info-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background: #f5f7fa;
+            border-radius: 8px;
+        }
+
+        .hospital-info-grid .info-item {
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        .hospital-info-grid strong {
+            color: #F97316;
+        }
+
+        .specialties-section h4,
+        .facilities-section h4 {
+            color: #333;
+            font-size: 0.95rem;
+            margin-bottom: 0.8rem;
+            margin-top: 1rem;
+        }
+
+        .specialties-list,
+        .facilities-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.6rem;
+            margin-bottom: 1rem;
+        }
+
+        .specialty-badge {
+            background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%);
+            color: white;
+            padding: 0.4rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.85rem;
+            font-weight: 600;
+        }
+
+        .facility-badge {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 0.4rem 0.8rem;
+            border-radius: 5px;
+            font-size: 0.85rem;
+        }
+
+        .view-details-btn {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 0.8rem;
+            margin-top: 1.5rem;
+            background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s;
+            border: none;
+            cursor: pointer;
+        }
+
+        .view-details-btn:hover {
+            transform: scale(1.02);
+            box-shadow: 0 4px 15px rgba(139,92,246,0.4);
+        }
+
+        @media (max-width: 768px) {
+            .hospitals-container {
+                grid-template-columns: 1fr;
+            }
+
+            .hospital-info-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</body>
+</html>

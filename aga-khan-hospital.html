@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+    <title>Aga Khan University Hospital - HEALZUP</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: #f5f7fa; color: #333;
+        }
+        header {
+            background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%);
+            color: white; padding: 1.5rem 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .header-content { max-width: 1200px; margin: 0 auto; }
+        .header-content div { font-size: 1.5rem; font-weight: 600; }
+        .hospital-info {
+            background: white; padding: 2rem; margin: 2rem auto; max-width: 1200px; border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .hospital-info h2 { color: #8B5CF6; margin-bottom: 1rem; }
+        .info-grid {
+            display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; margin-top: 1rem;
+        }
+        .info-item { padding: 0.5rem; }
+        .info-item strong { color: #F97316; }
+        .section-title { text-align: center; max-width: 1200px; margin: 3rem auto 2rem; padding: 0 1rem; }
+        .section-title h2 { color: #333; font-size: 2rem; margin-bottom: 0.5rem; }
+        .section-title p { color: #666; font-size: 1.1rem; }
+        .back-btn { max-width: 1200px; margin: 2rem auto 1rem; padding: 0 1rem; }
+        .back-btn button {
+            padding: 0.8rem 2rem; background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%); color: white;
+            border: none; border-radius: 5px; cursor: pointer; font-size: 1rem; display: flex; align-items: center;
+            gap: 0.5rem; transition: all 0.3s;
+        }
+        .back-btn button:hover { transform: scale(1.05); box-shadow: 0 4px 15px rgba(139,92,246,0.4); }
+
+        .departments-container {
+            max-width: 1200px; margin: 0 auto; padding: 1rem; display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem;
+        }
+        .department-card {
+            background: white; border-radius: 15px; padding: 2rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            cursor: pointer; transition: all 0.3s; text-align: center;
+        }
+        .department-card:hover { transform: translateY(-10px); box-shadow: 0 10px 30px rgba(0,0,0,0.15); }
+        .department-icon { width: 100px; height: 100px; margin: 0 auto 1.5rem; border-radius: 50%;
+            display: flex; align-items: center; justify-content: center; font-size: 3rem; color: white;
+        }
+        .dept-cardiology { background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%); }
+        .dept-dermatology { background: linear-gradient(135deg, #F97316 0%, #FBBF24 100%); }
+        .dept-orthopedic { background: linear-gradient(135deg, #A855F7 0%, #F97316 100%); }
+        .dept-gynecology { background: linear-gradient(135deg, #8B5CF6 0%, #EC4899 100%); }
+        .dept-pediatrics { background: linear-gradient(135deg, #FB923C 0%, #FBBF24 100%); }
+        .dept-neurology { background: linear-gradient(135deg, #7C3AED 0%, #8B5CF6 100%); }
+        .dept-gastro { background: linear-gradient(135deg, #F97316 0%, #C026D3 100%); }
+        .dept-ent { background: linear-gradient(135deg, #A855F7 0%, #FB923C 100%); }
+        .dept-pulmonology { background: linear-gradient(135deg, #9333EA 0%, #F59E0B 100%); }
+        .department-card h3 { color: #333; font-size: 1.4rem; margin-bottom: 0.5rem; }
+        .department-card p { color: #666; font-size: 0.9rem; }
+
+        .doctors-container {
+            max-width: 1200px; margin: 0 auto; padding: 1rem; display: none;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr)); gap: 1.5rem;
+        }
+        .doctors-container.active { display: grid; }
+
+        .doctor-card {
+            background: white; border-radius: 10px; padding: 1.5rem; box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .doctor-card:hover { transform: translateY(-5px); box-shadow: 0 5px 20px rgba(0,0,0,0.15); }
+
+        .doctor-header { display: flex; gap: 1rem; margin-bottom: 1rem; align-items: center; }
+        .doctor-avatar {
+            width: 80px; height: 80px; border-radius: 50%; background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%);
+            display: flex; align-items: center; justify-content: center; color: white; font-size: 1.4rem; font-weight: 700;
+        }
+        .doctor-info h3 { color: #333; margin-bottom: 0.3rem; }
+        .specialty { color: #F97316; font-size: 0.9rem; margin-bottom: 0.3rem; }
+        .experience { color: #666; font-size: 0.85rem; }
+
+        .doctor-details { margin: 1rem 0; padding-top: 1rem; border-top: 1px solid #eee; }
+        .detail-row { display: flex; justify-content: space-between; margin-bottom: 0.5rem; font-size: 0.9rem; }
+        .detail-label { color: #666; }
+        .detail-value { color: #333; font-weight: 600; }
+        .rating { color: #ffa500; font-size: 1rem; }
+
+        .card-actions { display:flex; gap:0.75rem; margin-top:0.75rem; }
+        .btn {
+            flex:1; padding:0.6rem 0.8rem; border-radius:6px; border:none; cursor:pointer; font-weight:600;
+        }
+        .btn-profile { background:#fff; border:1px solid #ddd; color:#333; }
+        .btn-consult { background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%); color:white; }
+        .btn-book { background:#10b981; color:white; }
+
+        .modal { display:none; position:fixed; z-index:1000; left:0; top:0; width:100%; height:100%; background-color: rgba(0,0,0,0.5); }
+        .modal.active { display: block; }
+        .modal-content {
+            background-color:white; margin:5% auto; padding:2rem; border-radius:10px; width:90%; max-width:520px; position:relative;
+        }
+        .close { position:absolute; right:1.25rem; top:1.25rem; font-size:1.6rem; cursor:pointer; color:#666; }
+        .close:hover { color:#333; }
+        .form-group { margin-bottom:1.25rem; }
+        .form-group label { display:block; margin-bottom:0.5rem; color:#333; font-weight:600; }
+        .form-group input, .form-group select, .form-group textarea {
+            width:100%; padding:0.8rem; border:1px solid #ddd; border-radius:6px; font-size:1rem;
+        }
+        .confirm-btn {
+            width:100%; padding:1rem; background: linear-gradient(135deg, #8B5CF6 0%, #F97316 100%); color:white; border:none; border-radius:6px; cursor:pointer; font-size:1rem; font-weight:600;
+        }
+        .confirm-btn:hover { transform:scale(1.02); box-shadow:0 6px 18px rgba(139,92,246,0.25); }
+
+        .success-content { text-align:center; }
+        .success-content h3 { color:#10b981; margin-bottom:0.5rem; }
+        .success-content p { color:#333; margin-bottom:0.75rem; }
+
+        .hidden { display:none; }
+
+        @media (max-width:768px) {
+            .departments-container { grid-template-columns: 1fr; }
+            .doctors-container { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <div class="header-content">
+            <div>HEALZUP</div>
+            <div style="font-weight:400; margin-top:6px;">Expert doctors at your fingertips</div>
+        </div>
+    </header>
+
+    <div class="hospital-info">
+        <h2>AGA KHAN UNIVERSITY HOSPITAL, Karachi</h2>
+        <div class="info-grid">
+            <div class="info-item"><strong>Address:</strong> Stadium Road, Karachi</div>
+            <div class="info-item"><strong>Phone:</strong> 021-34864900</div>
+            <div class="info-item"><strong>Timings:</strong> 24/7 Emergency Services</div>
+            <div class="info-item"><strong>Facilities:</strong> ICU, Emergency, Lab, Pharmacy, Radiology, Research Center</div>
+            <div class="info-item"><strong>Accreditation:</strong> JCI Accredited</div>
+            <div class="info-item"><strong>Established:</strong> 1985</div>
+        </div>
+    </div>
+
+    <div class="section-title" id="departmentTitle">
+        <h2>Select a Department</h2>
+        <p>Choose from our specialized medical departments</p>
+    </div>
+
+    <div class="back-btn hidden" id="backBtn">
+        <button onclick="showDepartments()">← Back to Departments</button>
+    </div>
+
+    <div class="section-title hidden" id="doctorsTitle">
+        <h2 id="selectedDeptName"></h2>
+        <p>Available doctors in this department</p>
+    </div>
+
+    <div class="departments-container" id="departmentsContainer">
+        <div class="department-card" onclick="showDoctors('Cardiology')">
+            <div class="department-icon dept-cardiology">❤</div>
+            <h3>Cardiology</h3>
+            <p>Heart & Cardiovascular Care</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('Dermatology')">
+            <div class="department-icon dept-dermatology">🩺</div>
+            <h3>Dermatology</h3>
+            <p>Skin, Hair & Nail Treatment</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('Orthopedic')">
+            <div class="department-icon dept-orthopedic">🦴</div>
+            <h3>Orthopedics</h3>
+            <p>Bone & Joint Specialists</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('Gynecology')">
+            <div class="department-icon dept-gynecology">👶</div>
+            <h3>Gynecology</h3>
+            <p>Women's Health Care</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('Pediatrics')">
+            <div class="department-icon dept-pediatrics">🧸</div>
+            <h3>Pediatrics</h3>
+            <p>Children's Healthcare</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('Neurology')">
+            <div class="department-icon dept-neurology">🧠</div>
+            <h3>Neurology</h3>
+            <p>Brain & Nervous System</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('Gastroenterology')">
+            <div class="department-icon dept-gastro">🔬</div>
+            <h3>Gastroenterology</h3>
+            <p>Digestive System Care</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('ENT')">
+            <div class="department-icon dept-ent">👂</div>
+            <h3>ENT</h3>
+            <p>Ear, Nose & Throat</p>
+        </div>
+
+        <div class="department-card" onclick="showDoctors('Pulmonology')">
+            <div class="department-icon dept-pulmonology">🫁</div>
+            <h3>Pulmonology</h3>
+            <p>Respiratory & Lung Care</p>
+        </div>
+    </div>
+
+    <div class="doctors-container" id="doctorsContainer"></div>
+
+    <!-- Booking Modal -->
+    <div id="bookingModal" class="modal" role="dialog" aria-hidden="true">
+        <div class="modal-content" role="document">
+            <span class="close" onclick="closeModal('bookingModal')">&times;</span>
+            <h2 id="bookingHeader" style="margin-bottom:1rem;color:#8B5CF6;">Book Appointment</h2>
+
+            <div class="form-group">
+                <label>Patient Name</label>
+                <input type="text" id="patientName" placeholder="Enter your name" />
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="patientPhone" placeholder="03XX-XXXXXXX" />
+            </div>
+            <div class="form-group">
+                <label>Age</label>
+                <input type="number" id="patientAge" placeholder="Age" min="0" />
+            </div>
+            <div class="form-group">
+                <label>Problem Description</label>
+                <textarea id="patientProblem" placeholder="Briefly describe the issue" rows="3"></textarea>
+            </div>
+            <div class="form-group">
+                <label>Appointment Date</label>
+                <input type="date" id="appointmentDate" />
+            </div>
+            <div class="form-group">
+                <label>Appointment Time</label>
+                <select id="appointmentTime">
+                    <option>9:00 AM</option>
+                    <option>10:00 AM</option>
+                    <option>11:00 AM</option>
+                    <option>2:00 PM</option>
+                    <option>3:00 PM</option>
+                    <option>4:00 PM</option>
+                    <option>5:00 PM</option>
+                </select>
+            </div>
+            <button class="confirm-btn" onclick="confirmBooking()">Confirm Appointment</button>
+        </div>
+    </div>
+
+    <!-- Profile Modal -->
+    <div id="profileModal" class="modal" role="dialog" aria-hidden="true">
+        <div class="modal-content" role="document">
+            <span class="close" onclick="closeModal('profileModal')">&times;</span>
+            <div id="profileContent">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Modal -->
+    <div id="successModal" class="modal" role="dialog" aria-hidden="true">
+        <div class="modal-content" role="document">
+            <span class="close" onclick="closeModal('successModal')">&times;</span>
+            <div class="success-content" id="successContent">
+                <!-- Filled dynamically -->
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <script>
+        let selectedDoctor = null;
+        let currentDepartment = null;
+
+        function getInitials(fullName) {
+            if (!fullName) return '';
+            const parts = fullName.replace(/^Dr\.\s*/i, '').trim().split(/\s+/);
+            if (parts.length === 1) return parts[0].charAt(0).toUpperCase();
+            return (parts[0].charAt(0) + parts[1].charAt(0)).toUpperCase();
+        }
+
+        function showDoctors(department) {
+            currentDepartment = department;
+            const doctors = window.doctors || {};
+            const departmentDoctors = doctors[department] || [];
+
+            document.getElementById('departmentsContainer').style.display = 'none';
+            document.getElementById('departmentTitle').classList.add('hidden');
+            document.getElementById('backBtn').classList.remove('hidden');
+            document.getElementById('doctorsTitle').classList.remove('hidden');
+            document.getElementById('selectedDeptName').textContent = department;
+
+            const container = document.getElementById('doctorsContainer');
+            container.classList.add('active');
+            container.innerHTML = '';
+
+            if (departmentDoctors.length === 0) {
+                const empty = document.createElement('div');
+                empty.className = 'doctor-card';
+                empty.innerHTML = `<p style="text-align:center;color:#666;">No doctors listed for this department yet.</p>`;
+                container.appendChild(empty);
+                return;
+            }
+
+            departmentDoctors.forEach((doctor, idx) => {
+                const initials = getInitials(doctor.name);
+                const card = document.createElement('div');
+                card.className = 'doctor-card';
+                card.innerHTML = `
+                    <div class="doctor-header">
+                        <div class="doctor-avatar">${initials}</div>
+                        <div class="doctor-info">
+                            <h3>${doctor.name}</h3>
+                            <div class="specialty">${doctor.specialty}</div>
+                            <div class="experience">${doctor.experience} experience</div>
+                        </div>
+                    </div>
+                    <div class="doctor-details">
+                        <div class="detail-row"><span class="detail-label">Consultation Fee:</span><span class="detail-value">${doctor.fee}</span></div>
+                        <div class="detail-row"><span class="detail-label">Rating:</span><span class="detail-value rating">★ ${doctor.rating}/5.0</span></div>
+                        <div class="detail-row"><span class="detail-label">Available:</span><span class="detail-value">${doctor.availability}</span></div>
+                    </div>
+                    <div class="card-actions">
+                        <button class="btn btn-profile" onclick='openProfileModal(${JSON.stringify(doctor)})'>Profile</button>
+                        <button class="btn btn-consult" onclick='openBookingModal(${JSON.stringify(doctor)})'>Consult</button>
+                        <button class="btn btn-book" onclick='openBookingModal(${JSON.stringify(doctor)})'>Book</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function showDepartments() {
+            document.getElementById('departmentsContainer').style.display = 'grid';
+            document.getElementById('departmentTitle').classList.remove('hidden');
+            document.getElementById('backBtn').classList.add('hidden');
+            document.getElementById('doctorsTitle').classList.add('hidden');
+            document.getElementById('doctorsContainer').classList.remove('active');
+            closeModal('bookingModal'); closeModal('profileModal'); closeModal('successModal');
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openBookingModal(doctor) {
+            selectedDoctor = doctor;
+            const modal = document.getElementById('bookingModal');
+            const header = document.getElementById('bookingHeader');
+            header.innerHTML = `Book Appointment — <span style="color:#333;font-weight:700;">${doctor.name}</span><br/><small style="color:#666;">Fee: ${doctor.fee} • ${doctor.specialty}</small>`;
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointmentDate').setAttribute('min', today);
+            document.getElementById('patientProblem').value = '';
+            modal.classList.add('active');
+            modal.style.display = 'block';
+        }
+
+        function openProfileModal(doctor) {
+            selectedDoctor = doctor;
+            const modal = document.getElementById('profileModal');
+            const container = document.getElementById('profileContent');
+            container.innerHTML = `
+                <h2 style="margin-bottom:0.5rem;color:#8B5CF6;">${doctor.name}</h2>
+                <div style="color:#666;margin-bottom:0.75rem;">${doctor.qualification || ''} • ${doctor.specialty}</div>
+                <div style="margin-bottom:0.75rem;">
+                    <strong>Experience:</strong> ${doctor.experience}<br/>
+                    <strong>Available:</strong> ${doctor.availability}<br/>
+                    <strong>Consultation Fee:</strong> <span style="font-weight:700;">${doctor.fee}</span><br/>
+                    <strong>Rating:</strong> <span class="rating">★ ${doctor.rating}/5.0</span>
+                </div>
+                <div style="margin-bottom:1rem;color:#444;">${doctor.bio || 'No bio available.'}</div>
+                <div style="display:flex;gap:0.75rem;">
+                    <button class="btn btn-consult" style="flex:1;" onclick='openBookingModal(${JSON.stringify(doctor)}); closeModal("profileModal");'>Consult / Book</button>
+                    <button class="btn btn-profile" style="flex:1;" onclick="closeModal('profileModal')">Close</button>
+                </div>
+            `;
+            modal.classList.add('active');
+            modal.style.display = 'block';
+        }
+
+        function closeModal(id) {
+            const modal = document.getElementById(id);
+            if (!modal) return;
+            modal.classList.remove('active');
+            modal.style.display = 'none';
+        }
+
+        function confirmBooking() {
+            const name = document.getElementById('patientName').value.trim();
+            const phone = document.getElementById('patientPhone').value.trim();
+            const age = document.getElementById('patientAge').value.trim();
+            const problem = document.getElementById('patientProblem').value.trim();
+            const date = document.getElementById('appointmentDate').value;
+            const time = document.getElementById('appointmentTime').value;
+
+            if (!name || !phone || !date) {
+                alert('Please fill in name, phone number and appointment date.');
+                return;
+            }
+            if (!selectedDoctor) {
+                alert('Please select a doctor first.');
+                return;
+            }
+
+            const confirmation = {
+                doctor: selectedDoctor.name,
+                specialty: selectedDoctor.specialty,
+                fee: selectedDoctor.fee,
+                patient: name,
+                phone: phone,
+                age: age || 'N/A',
+                date: date,
+                time: time,
+                problem: problem || 'N/A'
+            };
+
+            closeModal('bookingModal');
+
+            const successHtml = `
+                <h3>Appointment Request Received</h3>
+                <p>Your appointment request with <strong>${confirmation.doctor}</strong> has been received.</p>
+                <p>
+                    <strong>Patient:</strong> ${confirmation.patient}<br/>
+                    <strong>Contact:</strong> ${confirmation.phone}<br/>
+                    <strong>Date & Time:</strong> ${confirmation.date} at ${confirmation.time}<br/>
+                    <strong>Consultation Fee:</strong> ${confirmation.fee}
+                </p>
+                <p style="color:#666;margin-top:0.5rem;">
+                    Our scheduling team will contact you shortly to confirm the booking and provide any further instructions.
+                    Please keep your phone available. For urgent matters call our helpline at <strong>021-34864900</strong>.
+                </p>
+                <div style="margin-top:1rem;display:flex;gap:0.75rem;">
+                    <button class="btn btn-profile" onclick="closeModal('successModal')">Close</button>
+                </div>
+            `;
+            document.getElementById('successContent').innerHTML = successHtml;
+
+            const successModal = document.getElementById('successModal');
+            successModal.classList.add('active');
+            successModal.style.display = 'block';
+
+            document.getElementById('patientName').value = '';
+            document.getElementById('patientPhone').value = '';
+            document.getElementById('patientAge').value = '';
+            document.getElementById('patientProblem').value = '';
+            document.getElementById('appointmentDate').value = '';
+            document.getElementById('appointmentTime').selectedIndex = 0;
+        }
+
+        window.onclick = function(event) {
+            const modals = ['bookingModal','profileModal','successModal'];
+            modals.forEach(id => {
+                const m = document.getElementById(id);
+                if (m && event.target === m) closeModal(id);
+            });
+        };
+    </script>
+</body>
+</html>

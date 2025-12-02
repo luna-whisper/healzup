@@ -1,0 +1,335 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Departments - HEALZUP</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content nav-row">
+            <div class="logo"><a href="index.html" class="nav-link">HEALZUP</a></div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="hospitals.html" class="nav-link">Hospitals</a>
+                <a href="departments.html" class="nav-link">Departments</a>
+                <a href="blogs.html" class="nav-link">Blogs</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn doctor-join">Join as Doctor</button>
+                <a href="login.html" class="btn login">Login/SignUp</a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <div class="section-title">
+            <h2>Medical Departments</h2>
+            <p>Browse our specialized medical departments and find the right specialist</p>
+        </div>
+
+        <div class="back-btn" id="backBtn" style="display: none;">
+            <button onclick="handleBackButton()">← Back to Departments</button>
+        </div>
+
+        <div class="section-title hidden" id="doctorsTitle">
+            <h2 id="selectedDeptName"></h2>
+            <p id="selectedHospitalInfo">Available across all partner hospitals</p>
+        </div>
+
+        <div class="departments-container" id="departmentsContainer">
+            <!-- filled by JS -->
+        </div>
+
+        <div class="doctors-container" id="doctorsContainer"></div>
+
+        <div id="bookingModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeModal()">&times;</span>
+                <h2 style="margin-bottom: 1.5rem; color: #8B5CF6;">Book Appointment</h2>
+                <div class="form-group">
+                    <label>Patient Name</label>
+                    <input type="text" id="patientName" placeholder="Enter your name">
+                </div>
+                <div class="form-group">
+                    <label>Phone Number</label>
+                    <input type="tel" id="patientPhone" placeholder="03XX-XXXXXXX">
+                </div>
+                <div class="form-group">
+                    <label>Appointment Date</label>
+                    <input type="date" id="appointmentDate">
+                </div>
+                <div class="form-group">
+                    <label>Appointment Time</label>
+                    <select id="appointmentTime">
+                        <option>9:00 AM</option>
+                        <option>10:00 AM</option>
+                        <option>11:00 AM</option>
+                        <option>2:00 PM</option>
+                        <option>3:00 PM</option>
+                        <option>4:00 PM</option>
+                        <option>5:00 PM</option>
+                    </select>
+                </div>
+                <button class="confirm-btn" onclick="confirmBooking()">Confirm Appointment</button>
+            </div>
+        </div>
+
+        <div id="profileModal" class="modal">
+            <div class="modal-content">
+                <span class="close" onclick="closeProfileModal()">&times;</span>
+                <h2 style="margin-bottom: 1rem; color: #8B5CF6;" id="profileName"></h2>
+                <div class="detail-row">
+                    <span class="detail-label">Specialty:</span>
+                    <span class="detail-value" id="profileSpecialty"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Experience:</span>
+                    <span class="detail-value" id="profileExperience"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Consultation Fee:</span>
+                    <span class="detail-value" id="profileFee"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Rating:</span>
+                    <span class="detail-value rating" id="profileRating"></span>
+                </div>
+                <div class="detail-row">
+                    <span class="detail-label">Available:</span>
+                    <span class="detail-value" id="profileAvailability"></span>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; 2025 HEALZUP — All Rights Reserved</p>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+    <script>
+        let selectedDoctor = null;
+        let currentDepartment = null;
+
+        document.addEventListener('DOMContentLoaded', function() {
+            initDepartmentsPage();
+            // Show Cardiology by default
+            showDoctorsFromDept('Cardiology');
+        });
+
+        function initDepartmentsPage() {
+            const container = document.getElementById('departmentsContainer');
+            if (!container) return;
+
+            const deptIcons = {
+                'Cardiology': '❤', 'Dermatology': '🩺', 'Orthopedic': '🦴', 'Gynecology': '👶',
+                'Pediatrics': '🧸', 'Neurology': '🧠', 'Gastroenterology': '🔬', 'ENT': '👂', 'Pulmonology': '🫁'
+            };
+            const deptStyles = {
+                'Cardiology': 'dept-cardiology', 'Dermatology': 'dept-dermatology', 'Orthopedic': 'dept-orthopedic',
+                'Gynecology': 'dept-gynecology', 'Pediatrics': 'dept-pediatrics', 'Neurology': 'dept-neurology',
+                'Gastroenterology': 'dept-gastro', 'ENT': 'dept-ent', 'Pulmonology': 'dept-pulmonology'
+            };
+
+            const allDepts = ['Cardiology', 'Dermatology', 'Orthopedic', 'Gynecology', 'Pediatrics', 'Neurology', 'Gastroenterology', 'ENT', 'Pulmonology'];
+            
+            allDepts.forEach(dept => {
+                const card = document.createElement('div');
+                card.className = 'department-card';
+                card.innerHTML = `
+                    <div class="department-icon ${deptStyles[dept] || 'dept-cardiology'}">
+                        ${deptIcons[dept] || '🏥'}
+                    </div>
+                    <h3>${dept}</h3>
+                    <p>Find specialists in this department</p>
+                `;
+                card.addEventListener('click', function() {
+                    showDoctorsFromDept(dept);
+                });
+                container.appendChild(card);
+            });
+        }
+
+        function showDoctorsFromDept(dept) {
+            currentDepartment = dept;
+            const doctorsData = window.doctors || {};
+            
+            const container = document.getElementById('doctorsContainer');
+            const titleEl = document.getElementById('selectedDeptName');
+            const infoEl = document.getElementById('selectedHospitalInfo');
+            const departmentTitleEl = document.getElementById('doctorsTitle');
+            const departmentsContainer = document.getElementById('departmentsContainer');
+            const backBtn = document.getElementById('backBtn');
+
+            if (!container) return;
+
+            departmentsContainer.style.display = 'none';
+            if (departmentTitleEl) departmentTitleEl.classList.remove('hidden');
+            if (backBtn) backBtn.style.display = 'block';
+
+            if (titleEl) titleEl.textContent = dept;
+            if (infoEl) infoEl.textContent = 'Available across all partner hospitals';
+
+            container.classList.add('active');
+            container.innerHTML = '';
+
+            const doctorList = doctorsData[dept] || [];
+            if (doctorList.length === 0) {
+                container.innerHTML = '<p>No doctors found in this department.</p>';
+                return;
+            }
+
+            doctorList.forEach(doctor => {
+                const initial = doctor.name.split(' ')[1]?.charAt(0) || doctor.name.charAt(0);
+                const card = document.createElement('div');
+                card.className = 'doctor-card';
+                card.innerHTML = `
+                    <div class="doctor-header">
+                        <div class="doctor-avatar">${initial}</div>
+                        <div class="doctor-info">
+                            <h3>${doctor.name}</h3>
+                            <div class="specialty">${doctor.specialty}</div>
+                            <div class="experience">${doctor.experience} experience</div>
+                        </div>
+                    </div>
+                    <div class="doctor-details">
+                        <div class="detail-row">
+                            <span class="detail-label">Consultation Fee:</span>
+                            <span class="detail-value">${doctor.fee}</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Rating:</span>
+                            <span class="detail-value rating">★ ${doctor.rating}/5.0</span>
+                        </div>
+                        <div class="detail-row">
+                            <span class="detail-label">Available:</span>
+                            <span class="detail-value">${doctor.availability}</span>
+                        </div>
+                    </div>
+                    <div class="button-row">
+                        <button class="profile-btn" onclick="openProfile('${encodeURIComponent(doctor.name)}')">Profile</button>
+                        <button class="book-btn" onclick='openBookingModal(${JSON.stringify(doctor)})'>Consult</button>
+                    </div>
+                `;
+                container.appendChild(card);
+            });
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function handleBackButton() {
+            const departmentsContainer = document.getElementById('departmentsContainer');
+            const doctorsContainer = document.getElementById('doctorsContainer');
+            const doctorsTitle = document.getElementById('doctorsTitle');
+            const backBtn = document.getElementById('backBtn');
+
+            if (departmentsContainer) departmentsContainer.style.display = 'grid';
+            if (doctorsContainer) doctorsContainer.classList.remove('active');
+            if (doctorsTitle) doctorsTitle.classList.add('hidden');
+            if (backBtn) backBtn.style.display = 'none';
+
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        function openBookingModal(doctor) {
+            selectedDoctor = doctor;
+            document.getElementById('bookingModal').style.display = 'block';
+            const today = new Date().toISOString().split('T')[0];
+            document.getElementById('appointmentDate').setAttribute('min', today);
+        }
+
+        function closeModal() {
+            document.getElementById('bookingModal').style.display = 'none';
+        }
+
+        function confirmBooking() {
+            const name = document.getElementById('patientName').value;
+            const phone = document.getElementById('patientPhone').value;
+            const date = document.getElementById('appointmentDate').value;
+            const time = document.getElementById('appointmentTime').value;
+
+            if (!name || !phone || !date || !time) {
+                alert('Please fill all fields');
+                return;
+            }
+
+            alert(`Appointment booked with ${selectedDoctor.name} on ${date} at ${time}`);
+            closeModal();
+            document.getElementById('patientName').value = '';
+            document.getElementById('patientPhone').value = '';
+            document.getElementById('appointmentDate').value = '';
+        }
+
+        function openProfile(doctorName) {
+            const decodedName = decodeURIComponent(doctorName);
+            const doctorsData = window.doctors || {};
+            const doctor = (doctorsData[currentDepartment] || []).find(d => d.name === decodedName);
+            
+            if (!doctor) return;
+            
+            document.getElementById('profileName').textContent = doctor.name;
+            document.getElementById('profileSpecialty').textContent = doctor.specialty;
+            document.getElementById('profileExperience').textContent = doctor.experience + " experience";
+            document.getElementById('profileFee').textContent = doctor.fee;
+            document.getElementById('profileRating').textContent = "★ " + doctor.rating + "/5.0";
+            document.getElementById('profileAvailability').textContent = doctor.availability;
+            document.getElementById('profileModal').style.display = 'block';
+        }
+
+        function closeProfileModal() {
+            document.getElementById('profileModal').style.display = 'none';
+        }
+
+        window.onclick = function(event) {
+            if (event.target == document.getElementById('bookingModal')) closeModal();
+            if (event.target == document.getElementById('profileModal')) closeProfileModal();
+        }
+    </script>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HEALZUP</h3>
+                    <p>Your trusted platform for finding and booking healthcare appointments</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="departments.html">Departments</a></li>
+                        <li><a href="about.html">About Us</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="join.html">Join as Doctor</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">Facebook</a>
+                        <a href="#" class="social-icon">Twitter</a>
+                        <a href="#" class="social-icon">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HEALZUP — All Rights Reserved</p>
+                <p>Built and Designed by <strong><a href="https://github.com/Jutt" target="_blank" class="dev-link">Jutt</a></strong></p>
+            </div>
+        </div>
+    </footer>
+</body>
+</html>

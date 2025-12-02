@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HEALZUP - Doctors Hospital Lahore</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <header>
+        <div class="header-content nav-row">
+            <div class="logo"><a href="index.html" class="nav-link">HEALZUP</a></div>
+            <nav class="main-nav">
+                <a href="index.html" class="nav-link">Home</a>
+                <a href="hospitals-new.html" class="nav-link">Hospitals</a>
+                <a href="departments.html" class="nav-link">Departments</a>
+                <a href="blogs.html" class="nav-link">Blogs</a>
+                <a href="about.html" class="nav-link">About Us</a>
+                <a href="contact.html" class="nav-link">Contact</a>
+            </nav>
+            <div class="nav-actions">
+                <button class="btn doctor-join">Join as Doctor</button>
+                <a href="login.html" class="btn login">Login/SignUp</a>
+            </div>
+        </div>
+
+     
+    </header>
+
+    <div class="brands-section">
+        <h2>Our Trusted Partners</h2>
+        <p>We collaborate with leading healthcare organizations</p>
+        <div class="brands-grid" id="brandsGrid">
+            <div class="brand-card">
+                <div class="brand-logo">🏥</div>
+                <h3>Doctors Hospital, Lahore</h3>
+                <p>Premium multi-specialty hospital</p>
+            </div>
+            <div class="brand-card">
+                <div class="brand-logo">🏥</div>
+                <h3>Shaukat Khanum Memorial</h3>
+                <p>Oncology & tertiary care center</p>
+            </div>
+            <div class="brand-card">
+                <div class="brand-logo">🏥</div>
+                <h3>Aga Khan University Hospital</h3>
+                <p>Advanced medical services</p>
+            </div>
+            <div class="brand-card">
+                <div class="brand-logo">🏥</div>
+                <h3>Holy Family Hospital</h3>
+                <p>Comprehensive healthcare provider</p>
+            </div>
+          
+        </div>
+    </div>
+
+    <div class="section-title">
+        <h2>What Our Patients Say</h2>
+        <p>Real experiences from patients who trusted us with their care</p>
+    </div>
+
+    <div class="testimonials-section" id="testimonialsSection">
+        <div class="testimonial-card">
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"HEALZUP made it so easy to find a specialist. The appointment booking was seamless and the doctor was excellent. Highly recommend!"</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">AK</div>
+                <div>
+                    <strong>Ayesha Khan</strong>
+                    <small>Verified Patient</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Professional service, comprehensive database of doctors and hospitals. This platform saved me so much time in finding quality healthcare."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">MH</div>
+                <div>
+                    <strong>Muhammad Hassan</strong>
+                    <small>Verified Patient</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Great experience from start to finish. The search filter by ratings was very helpful in choosing the right doctor for my needs."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">SF</div>
+                <div>
+                    <strong>Sara Fatima</strong>
+                    <small>Verified Patient</small>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonial-card">
+            <div class="testimonial-rating">★★★★★</div>
+            <p class="testimonial-text">"Finally, a platform that understands patient needs. Easy interface, quick appointments, and access to top specialists across cities."</p>
+            <div class="testimonial-author">
+                <div class="author-avatar">RJ</div>
+                <div>
+                    <strong>Rashid Javaid</strong>
+                    <small>Verified Patient</small>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="section-title" id="departmentTitle">
+        <h2>All Departments</h2>
+        <p><a href="departments.html" class="view-all-link">View all departments and find specialists →</a></p>
+    </div>
+
+    <div class="doctors-container" id="doctorsContainer"></div>
+
+    <div id="bookingModal" class="modal">
+        <div class="modal-content">
+            <span class="close" onclick="closeModal()">&times;</span>
+            <h2 style="margin-bottom: 1.5rem; color: #8B5CF6;">Book Appointment</h2>
+            <div class="form-group">
+                <label>Patient Name</label>
+                <input type="text" id="patientName" placeholder="Enter your name">
+            </div>
+            <div class="form-group">
+                <label>Phone Number</label>
+                <input type="tel" id="patientPhone" placeholder="03XX-XXXXXXX">
+            </div>
+            <div class="form-group">
+                <label>Appointment Date</label>
+                <input type="date" id="appointmentDate">
+            </div>
+            <div class="form-group">
+                <label>Appointment Time</label>
+                <select id="appointmentTime">
+                    <option>9:00 AM</option>
+                    <option>10:00 AM</option>
+                    <option>11:00 AM</option>
+                    <option>2:00 PM</option>
+                    <option>3:00 PM</option>
+                    <option>4:00 PM</option>
+                    <option>5:00 PM</option>
+                </select>
+            </div>
+            <button class="confirm-btn" onclick="confirmBooking()">Confirm Appointment</button>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+    <footer class="site-footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-section">
+                    <h3>HEALZUP</h3>
+                    <p>Your trusted platform for finding and booking healthcare appointments</p>
+                </div>
+                <div class="footer-section">
+                    <h4>Quick Links</h4>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="departments.html">Departments</a></li>
+                        <li><a href="hospitals.html">Hospitals</a></li>
+                        <li><a href="blogs.html">Blogs</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Support</h4>
+                    <ul class="footer-links">
+                        <li><a href="contact.html">Contact Us</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                        <li><a href="#">Terms & Conditions</a></li>
+                        <li><a href="join.html">Join as Doctor</a></li>
+                    </ul>
+                </div>
+                <div class="footer-section">
+                    <h4>Follow Us</h4>
+                    <div class="social-links">
+                        <a href="#" class="social-icon">Facebook</a>
+                        <a href="#" class="social-icon">Twitter</a>
+                        <a href="#" class="social-icon">Instagram</a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 HEALZUP — All Rights Reserved</p>
+                <p>Team Lead <strong><a href="https://github.com/Abdullah-PyDev" target="_blank" class="dev-link">Jutt</a></strong></p>
+            </div>
+        </div>
+    </footer>
+</body>
+
+</html>
