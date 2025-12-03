@@ -223,54 +223,49 @@
     </footer>
 
     <!-- ====== MERGED JS ====== -->
-    <script>
-        document.addEventListener("DOMContentLoaded", function () {
-            const articles = [
-                {
-                    img: ""C:\Users\inaaya\Desktop\Group-of-Men-and-Women-Jogging-scaled-1.jpeg"",
-                    title: "Benefits of Regular Exercise",
-                    intro: "Exercise is crucial for maintaining physical and mental health...",
-                    body: "Regular exercise improves cardiovascular health, boosts mental clarity, reduces stress, strengthens muscles, and enhances wellbeing."
-                },
-                {
-                    img: ""C:\Users\inaaya\Desktop\download (1).jpg"",
-                    title: "Healthy Eating Habits",
-                    intro: "Your diet plays a major role in shaping your health...",
-                    body: "Healthy eating includes balanced meals rich in fruits, vegetables, proteins, and whole grains. Avoiding processed foods prevents chronic diseases."
-                },
-                {
-                    img: ""C:\Users\inaaya\Desktop\images.jpg"",
-                    title: "Importance of Sleep",
-                    intro: "Quality sleep is essential for hormonal balance and recovery...",
-                    body: "Sleep helps repair tissues, regulate hormones, improve memory, and maintain a healthy immune system. Adults need 7–9 hours daily."
-                },
-                {
-                    img: ""C:\Users\inaaya\Desktop\download (2).jpg"",
-                    title: "Managing Stress Effectively",
-                    intro: "Stress affects both emotional and physical health...",
-                    body: "Effective stress management includes mindfulness, exercise, talking to loved ones, and maintaining a balanced lifestyle."
-                }
-            ];
+   <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const articles = [
+      {
+        title: "Benefits of Regular Exercise",
+        intro: "Exercise is crucial for maintaining physical and mental health...",
+        body: "Regular exercise improves cardiovascular health, boosts mental clarity, reduces stress, strengthens muscles, and enhances wellbeing."
+      },
+      {
+        title: "Healthy Eating Habits",
+        intro: "Your diet plays a major role in shaping your health...",
+        body: "Healthy eating includes balanced meals rich in fruits, vegetables, proteins, and whole grains. Avoiding processed foods prevents chronic diseases."
+      },
+      {
+        title: "Importance of Sleep",
+        intro: "Quality sleep is essential for hormonal balance and recovery...",
+        body: "Sleep helps repair tissues, regulate hormones, improve memory, and maintain a healthy immune system. Adults need 7–9 hours daily."
+      },
+      {
+        title: "Managing Stress Effectively",
+        intro: "Stress affects both emotional and physical health...",
+        body: "Effective stress management includes mindfulness, exercise, talking to loved ones, and maintaining a balanced lifestyle."
+      }
+    ];
 
-            const grid = document.getElementById("blogGrid");
+    const grid = document.getElementById("blogGrid");
+    if (!grid) return;
 
-            articles.forEach(a => {
-                grid.innerHTML += `
-                <div class="blog-card">
-                    <img src="${a.img}" class="blog-img">
-                    <h3 class="blog-title">${a.title}</h3>
-                    <p class="blog-intro">${a.intro}</p>
-
-                    <details>
-                        <summary>Read Article Summary</summary>
-                        <p>${a.body}</p>
-                    </details>
-                </div>`;
-            });
-        });
-    </script>
-
+    articles.forEach(a => {
+      const card = document.createElement("div");
+      card.className = "blog-card";
+      card.innerHTML = `
+        <h3 class="blog-title">${a.title}</h3>
+        <p class="blog-intro">${a.intro}</p>
+        <details>
+          <summary>Read Article Summary</summary>
+          <p>${a.body}</p>
+        </details>
+      `;
+      grid.appendChild(card);
+    });
+  });
+</script>
 </body>
 </html>
-
 
