@@ -4,29 +4,200 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Blogs - HEALZUP</title>
-    <link rel="stylesheet" href="style.css" />
+
+    <!-- ====== MERGED CSS ====== -->
     <style>
-        /* Simple dropdown style for full article */
-        details {
-            background: #f9f9f9;
-            border-radius: 8px;
+        body {
+            margin: 0;
+            font-family: Arial, sans-serif;
+            background: #f5f5f5;
+        }
+
+        /* HEADER */
+        header {
+            background: white;
+            padding: 15px 0;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.05);
+        }
+        .header-content {
+            width: 90%;
+            margin: auto;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .main-nav .nav-link {
+            margin: 0 12px;
+            text-decoration: none;
+            color: #333;
+        }
+        .btn {
+            padding: 8px 14px;
+            border-radius: 6px;
+            background: #4a6ee0;
+            color: white;
+            text-decoration: none;
+        }
+
+        /* BLOG PAGE */
+        .container {
+            max-width: 1100px;
+            margin: 20px auto;
+            padding: 0 15px;
+        }
+        .section-title {
+            text-align: center;
+            margin-bottom: 25px;
+        }
+
+        .blog-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .blog-card {
+            background: white;
+            border-radius: 10px;
             padding: 15px;
-            margin-top: 10px;
-            cursor: pointer;
             border: 1px solid #ddd;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.04);
+        }
+
+        .blog-img {
+            width: 100%;
+            height: 160px;
+            object-fit: cover;
+            border-radius: 8px;
+        }
+
+        .blog-title {
+            margin: 10px 0 5px;
+        }
+
+        .blog-intro {
+            color: #555;
+        }
+
+        /* DROPDOWN FULL ARTICLE */
+        details {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 15px;
+            border: 1px solid #eee;
         }
         details summary {
-            font-weight: bold;
-            font-size: 18px;
             cursor: pointer;
+            font-weight: 600;
+        }
+        details summary::-webkit-details-marker {
+            display: none;
+        }
+        details summary::after {
+            content: " ▾";
+            font-weight: bold;
+        }
+        details[open] summary::after {
+            content: " ▴";
         }
         details p {
             margin-top: 10px;
             line-height: 1.6;
         }
+
+        /* FOOTER */
+        .site-footer {
+            background: #222;
+            color: white;
+            padding: 30px 0;
+            margin-top: 30px;
+        }
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 25px;
+        }
+        .footer-section h4,
+        .footer-section h3 {
+            margin-bottom: 10px;
+        }
+        .footer-links a {
+            color: #bbb;
+            text-decoration: none;
+        }
+        .footer-bottom {
+            text-align: center;
+            margin-top: 20px;
+            border-top: 1px solid #444;
+            padding-top: 15px;
+            font-size: 14px;
+        }
     </style>
 </head>
+
 <body>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HEALZUP - Blogs</title>
+    <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+    <section class="blogs-section">
+        <h1 class="blogs-heading">Our Latest Blogs</h1>
+
+        <div class="blogs-container">
+            <!-- Blog 1 -->
+            <div class="blog-card">
+                <img src="images/b1.png" alt="Blog Image" class="blog-img" />
+                <h3>The Future of Telemedicine</h3>
+                <p>Telemedicine is transforming healthcare delivery with virtual consultations and AI-powered diagnostics...</p>
+                <details>
+                    <summary>Read Article Summary</summary>
+                    <p>Telemedicine continues to grow rapidly, helping patients access doctors from anywhere. With the rise of AI-powered tools, remote diagnosis, patient monitoring, and electronic prescriptions have become easier and faster. Hospitals adopting telemedicine report better patient satisfaction and reduced load on emergency departments.</p>
+                </details>
+            </div>
+
+            <!-- Blog 2 -->
+            <div class="blog-card">
+                <img src="images/b2.png" alt="Blog Image" class="blog-img" />
+                <h3>Importance of Mental Health</h3>
+                <p>Mental health awareness is increasing worldwide as people understand the need to care for emotional well-being...</p>
+                <details>
+                    <summary>Read Article Summary</summary>
+                    <p>Mental health is just as important as physical health. Stress, anxiety, and depression are becoming more common in fast-paced environments. Seeking therapy, talking openly, and practicing mindfulness are effective steps toward emotional stability and long-term well-being.</p>
+                </details>
+            </div>
+
+            <!-- Blog 3 -->
+            <div class="blog-card">
+                <img src="images/b3.png" alt="Blog Image" class="blog-img" />
+                <h3>Nutrition & Healthy Living</h3>
+                <p>A balanced diet supports long-term health and prevents chronic diseases like diabetes and hypertension...</p>
+                <details>
+                    <summary>Read Article Summary</summary>
+                    <p>Healthy eating habits can significantly improve energy levels, immunity, and lifespan. Consuming fresh fruits, vegetables, lean proteins, and whole grains keeps the body strong. Avoiding excessive sugar and processed foods reduces the risk of cardiovascular issues and obesity.</p>
+                </details>
+            </div>
+
+            <!-- Blog 4 -->
+            <div class="blog-card">
+                <img src="images/b4.png" alt="Blog Image" class="blog-img" />
+                <h3>Advancements in Medical Imaging</h3>
+                <p>Modern imaging technologies are making diagnostics faster and more accurate than ever before...</p>
+                <details>
+                    <summary>Read Article Summary</summary>
+                    <p>From high-resolution MRI machines to AI-enhanced X-ray analysis, imaging technology has improved drastically. These advancements help doctors diagnose early-stage diseases quickly, leading to effective treatment plans and better outcomes.</p>
+                </details>
+            </div>
+        </div>
+    </section>
+</body>
+</html>
+    <!-- HEADER -->
     <header>
         <div class="header-content nav-row">
             <div class="logo"><a href="index.html" class="nav-link">HEALZUP</a></div>
@@ -45,6 +216,7 @@
         </div>
     </header>
 
+    <!-- BLOG CONTENT -->
     <main class="blogs-page">
         <div class="container">
             <div class="section-title">
@@ -52,109 +224,97 @@
                 <p>Learn from curated articles written by medical professionals</p>
             </div>
 
-            <div class="blog-grid" id="blogGrid">
-                <!-- Example Blog Card with dropdown instead of popup -->
-                <div class="blog-card">
-                    <img src="blog1.jpg" alt="Blog Image" class="blog-img">
-                    <h3 class="blog-title">Benefits of Regular Exercise</h3>
-                    <p class="blog-intro">Exercise is crucial for maintaining physical and mental health...</p>
-
-                    <details>
-                        <summary>Read Article Summary</summary>
-                        <p>
-                            Regular exercise improves cardiovascular health, boosts mental clarity, 
-                            reduces stress, strengthens muscles, and enhances overall wellbeing. Experts 
-                            recommend at least 30 minutes of moderate activity daily. Whether it's walking, 
-                            jogging, or simple stretching, consistency is key!
-                        </p>
-                    </details>
-                </div>
-
-                <div class="blog-card">
-                    <img src="blog2.jpg" alt="Blog Image" class="blog-img">
-                    <h3 class="blog-title">Healthy Eating Habits</h3>
-                    <p class="blog-intro">Your diet plays a major role in shaping your health...</p>
-
-                    <details>
-                        <summary>Read Article Summary</summary>
-                        <p>
-                            Healthy eating includes balanced meals rich in fruits, vegetables, proteins, 
-                            and whole grains. Avoiding excessive sugar and processed foods helps maintain 
-                            energy levels and prevents chronic diseases.
-                        </p>
-                    </details>
-                </div>
-                            <div class="blog-card">
-                    <img src="blog3.jpg" alt="Blog Image" class="blog-img">
-                    <h3 class="blog-title">Importance of Sleep</h3>
-                    <p class="blog-intro">Quality sleep is essential for hormonal balance and recovery...</p>
-                    <details>
-                        <summary>Read Article Summary</summary>
-                        <p>
-                            Sleep helps the body repair tissues, regulate hormones, improve memory,
-                            and maintain a healthy immune system. Adults should aim for 7–9 hours
-                            of sleep daily to function at their best.
-                        </p>
-                    </details>
-                </div>
-
-                <div class="blog-card">
-                    <img src="blog4.jpg" alt="Blog Image" class="blog-img">
-                    <h3 class="blog-title">Managing Stress Effectively</h3>
-                    <p class="blog-intro">Stress affects both emotional and physical health...</p>
-                    <details>
-                        <summary>Read Article Summary</summary>
-                        <p>
-                            Effective stress management includes mindfulness, meditation, exercise,
-                            talking to loved ones, and maintaining a balanced lifestyle. Persistent
-                            stress can lead to long‑term health issues, so early management is vital.
-                        </p>
-                    </details>
-                </div>
-            </div>
+            <div class="blog-grid" id="blogGrid"></div>
         </div>
     </main>
 
+    <!-- FOOTER -->
     <footer class="site-footer">
         <div class="container">
             <div class="footer-content">
                 <div class="footer-section">
                     <h3>HEALZUP</h3>
-                    <p>Your trusted platform for finding and booking healthcare appointments</p>
+                    <p>Your trusted platform for healthcare appointments</p>
                 </div>
+
                 <div class="footer-section">
                     <h4>Quick Links</h4>
                     <ul class="footer-links">
                         <li><a href="index.html">Home</a></li>
                         <li><a href="departments.html">Departments</a></li>
-                        <li><a href="about.html">About Us</a></li>
                         <li><a href="blogs.html">Blogs</a></li>
+                        <li><a href="about.html">About Us</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-section">
                     <h4>Support</h4>
                     <ul class="footer-links">
                         <li><a href="contact.html">Feedback</a></li>
                         <li><a href="#">Privacy Policy</a></li>
                         <li><a href="#">Terms & Conditions</a></li>
-                        <li><a href="join.html">Join as Doctor</a></li>
                     </ul>
                 </div>
+
                 <div class="footer-section">
                     <h4>Follow Us</h4>
-                    <div class="social-links">
-                        <a href="#" class="social-icon">Facebook</a>
-                        <a href="#" class="social-icon">Twitter</a>
-                        <a href="#" class="social-icon">Instagram</a>
-                    </div>
+                    <p>Facebook | Twitter | Instagram</p>
                 </div>
             </div>
+
             <div class="footer-bottom">
                 <p>&copy; 2022 HEALZUP — All Rights Reserved</p>
             </div>
         </div>
     </footer>
 
-    <script src="script.js"></script>
+    <!-- ====== MERGED JS ====== -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            const articles = [
+                {
+                    img: "blog1.jpg",
+                    title: "Benefits of Regular Exercise",
+                    intro: "Exercise is crucial for maintaining physical and mental health...",
+                    body: "Regular exercise improves cardiovascular health, boosts mental clarity, reduces stress, strengthens muscles, and enhances wellbeing."
+                },
+                {
+                    img: "blog2.jpg",
+                    title: "Healthy Eating Habits",
+                    intro: "Your diet plays a major role in shaping your health...",
+                    body: "Healthy eating includes balanced meals rich in fruits, vegetables, proteins, and whole grains. Avoiding processed foods prevents chronic diseases."
+                },
+                {
+                    img: "blog3.jpg",
+                    title: "Importance of Sleep",
+                    intro: "Quality sleep is essential for hormonal balance and recovery...",
+                    body: "Sleep helps repair tissues, regulate hormones, improve memory, and maintain a healthy immune system. Adults need 7–9 hours daily."
+                },
+                {
+                    img: "blog4.jpg",
+                    title: "Managing Stress Effectively",
+                    intro: "Stress affects both emotional and physical health...",
+                    body: "Effective stress management includes mindfulness, exercise, talking to loved ones, and maintaining a balanced lifestyle."
+                }
+            ];
+
+            const grid = document.getElementById("blogGrid");
+
+            articles.forEach(a => {
+                grid.innerHTML += `
+                <div class="blog-card">
+                    <img src="${a.img}" class="blog-img">
+                    <h3 class="blog-title">${a.title}</h3>
+                    <p class="blog-intro">${a.intro}</p>
+
+                    <details>
+                        <summary>Read Article Summary</summary>
+                        <p>${a.body}</p>
+                    </details>
+                </div>`;
+            });
+        });
+    </script>
+
 </body>
 </html>
